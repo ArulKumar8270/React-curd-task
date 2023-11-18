@@ -34,20 +34,34 @@ export const AddEmpoyee = () => {
 
   console.log(employeeForm, "employeeForm234321", errorMessage);
 
+  React.useEffect(() => {
+    if (!show) {
+      setEmployeeForm({
+        username: null,
+        password: null,
+        role: "admin",
+        additionalInfo: null,
+        id: null,
+        employeeName: null,
+        skill: null,
+      });
+    }
+  }, [show]);
+
   const onSubmit = (e) => {
     e.preventDefault();
     let errorMessage = {};
 
-    if (!employeeForm.username) {
+    if (!employeeForm.username && user?.role !== "employee") {
       errorMessage["username"] = "This field is required";
     }
     if (!employeeForm.employeeName) {
-      errorMessage["username"] = "This field is required";
+      errorMessage["employeeName"] = "This field is required";
     }
-    if (!employeeForm.password) {
+    if (!employeeForm.password && user?.role !== "employee") {
       errorMessage["password"] = "This field is required";
     }
-    if (!employeeForm.additionalInfo) {
+    if (!employeeForm.additionalInfo && user?.role !== "employee") {
       errorMessage["additionalInfo"] = "This field is required";
     }
     setErrorMessage(errorMessage);
@@ -59,16 +73,6 @@ export const AddEmpoyee = () => {
         dispatch(addEmplyee(employeeForm));
         handleClose();
       }
-
-      setEmployeeForm({
-        username: null,
-        password: null,
-        role: "admin",
-        additionalInfo: null,
-        id: null,
-        employeeName: null,
-        skill: null,
-      });
     }
 
     console.log(employeeForm, "submitData");
@@ -107,7 +111,7 @@ export const AddEmpoyee = () => {
               Log Out
             </button>
             <button className="btn btn-primary" onClick={handleShow}>
-              Add Employee
+              {user?.role === "employee" ? "Add Skills" : "Add Employee"}
             </button>
           </div>
           <table className="table">
@@ -115,9 +119,13 @@ export const AddEmpoyee = () => {
               <tr>
                 <th>ID</th>
                 <th>Employee Name</th>
-                <th>Username</th>
-                <th>Role</th>
-                <th>Additional Info</th>
+                {user?.role !== "employee" && (
+                  <>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Additional Info</th>
+                  </>
+                )}
                 <th>Skills</th>
                 <th>Action</th>
               </tr>
@@ -127,9 +135,12 @@ export const AddEmpoyee = () => {
                 <tr key={index}>
                   <td>{index}</td>
                   <td>{employee?.employeeName}</td>
-                  <td>{employee?.username}</td>
-                  <td>{employee?.role}</td>
-                  <td>{employee?.additionalInfo}</td>
+                  {user?.role !== "employee" && (
+                    <>
+                      <td>{employee?.role}</td>
+                      <td>{employee?.additionalInfo}</td>
+                    </>
+                  )}
                   <td>{employee?.skill}</td>
                   <td>
                     <button
