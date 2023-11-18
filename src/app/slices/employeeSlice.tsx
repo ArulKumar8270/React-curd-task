@@ -21,7 +21,6 @@ const employeeSlice = createSlice({
       console.log(action.payload, "payloadupdateEmployee");
     },
     deleteEmpoyee: (state, action) => {
-      //   const indexToDelete = action.payload?.id;
       state.employeeList?.splice(action.payload, 1);
       console.log(action.payload, "payloaddeleteEmpoyee");
     },

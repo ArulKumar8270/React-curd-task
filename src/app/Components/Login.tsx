@@ -4,14 +4,15 @@ import { useDispatch } from "react-redux";
 import { loginSuccess } from "../slices/authSlice";
 
 const Login = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); //create action method
   const [loginForm, setLoginForm] = useState(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     if (authenticateUser(loginForm?.userName, loginForm?.password)) {
       dispatch(
-        loginSuccess(authenticateUser(loginForm?.userName, loginForm?.password))
+        loginSuccess(authenticateUser(loginForm?.userName, loginForm?.password)) //store data to slice
       );
     } else {
       alert("Please check username and password");
