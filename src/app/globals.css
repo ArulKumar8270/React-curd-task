@@ -1,0 +1,42 @@
+/* styles/globals.css */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.error {
+  color: red;
+}
+form {
+  border: solid 1px;
+  padding: 2rem;
+}
+
+.heading {
+  text-align: center;
+  font-size: x-large;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.sidebar {
+  /* width: 100%; */
+  height: 100vh;
+  background-color: #333;
+  color: #fff;
+  padding-top: 20px;
+}
+
+.sidebar a {
+  padding: 10px;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+
+.sidebar a:hover {
+  background-color: #555;
+}
